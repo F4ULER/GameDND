@@ -5,10 +5,6 @@ import (
 	"time"
 )
 
-type ShowMenu interface {
-	show_atack_menu()
-}
-
 func PrintWithDelay(text string) {
 	var delay time.Duration = 20 * time.Millisecond
 	for _, char := range text {

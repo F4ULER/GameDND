@@ -4,21 +4,20 @@ import (
 	"fmt"
 )
 
-type Person interface {
+type IPerson interface {
 	Damage() int
 	move(deltaX, deltaY int)
 	setHP(HP int)
 	checkUnitHP() bool
+	GetPosition()
 }
 
-type ExperienceHandler interface {
+type IExperienceHandler interface {
 	GetExperience()
-	SetExperience()
+	SetExperience(exp int)
 	LVLUp()
-}
-
-type Enemies interface {
-	getEnemyLVL()
+	GetLVL() int
+	SetLVL(level int)
 }
 
 type Coordinates struct {
@@ -33,21 +32,12 @@ type Unit struct {
 	Race         string
 	level        int
 }
-type Player struct {
-	Name                  string
-	Possibility_of_player Unit
-	experience            int
-}
-
-type Enemy struct {
-	Possibility_of_enemy Unit
-}
 
 func (u *Unit) Damage() int {
 	return u.DamagePoints
 }
 
-func (u *Unit) Direction(step int) {
+func (u *Unit) DirectionMove(step int) {
 	switch step {
 	case 1:
 		u.move(1, 0)
@@ -78,33 +68,14 @@ func (u *Unit) checkUnitHP() bool {
 	}
 }
 
-func (p *Player) GetExperience() int {
-	return p.experience
-}
-
-func (p *Player) SetExperience(exp int) {
-	p.experience += exp
-}
-
-func (p *Player) LVLUp() {
-	var LVL = map[int]int{
-		1: 0,
-		2: 30,
-		3: 80,
-	}
-	for level, exp := range LVL {
-		if p.experience >= exp {
-			p.Possibility_of_player.SetLVL(level)
-		} else {
-			return
-		}
-	}
-}
-
 func (u *Unit) GetLVL() int {
 	return u.level
 }
 
 func (u *Unit) SetLVL(level int) {
 	u.level = level
+}
+
+func (u *Unit) GetPosition() Coordinates {
+	return u.Position
 }
