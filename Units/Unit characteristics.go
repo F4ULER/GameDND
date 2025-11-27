@@ -5,11 +5,13 @@ import (
 )
 
 type IPerson interface {
-	Damage() int
+	GetDamage() int
+	SetDamage()
 	move(deltaX, deltaY int)
-	setHP(HP int)
-	checkUnitHP() bool
+	CheckUnitHP() bool
 	GetPosition()
+	GetHP()
+	SetHP()
 }
 
 type IExperienceHandler interface {
@@ -26,15 +28,27 @@ type Coordinates struct {
 }
 
 type Unit struct {
-	HP           int
-	DamagePoints int
-	Position     Coordinates
-	Race         string
+	hitPoints    int
+	damagePoints int
+	position     Coordinates
+	race         string
 	level        int
 }
 
-func (u *Unit) Damage() int {
-	return u.DamagePoints
+func (u *Unit) GetDamage() int {
+	return u.damagePoints
+}
+
+func (u *Unit) SetDamage(damage int) {
+	u.damagePoints = damage
+}
+
+func (u *Unit) GetRace() string {
+	return u.race
+}
+
+func (u *Unit) SetRace(race string) {
+	u.race = race
 }
 
 func (u *Unit) DirectionMove(step int) {
@@ -51,17 +65,21 @@ func (u *Unit) DirectionMove(step int) {
 
 }
 func (u *Unit) move(deltaX, deltaY int) {
-	u.Position.X += deltaX
-	u.Position.Y += deltaY
+	u.position.X += deltaX
+	u.position.Y += deltaY
 }
 
-func (u *Unit) setHP(HP int) {
-	u.HP += HP
+func (u *Unit) SetHP(HP int) {
+	u.hitPoints += HP
 }
 
-func (u *Unit) checkUnitHP() bool {
-	if u.HP <= 0 {
-		fmt.Printf("%s УМЕР!\n", u.Race)
+func (u *Unit) GetHP() int {
+	return u.hitPoints
+}
+
+func (u *Unit) CheckUnitHP() bool {
+	if u.hitPoints <= 0 {
+		fmt.Printf("%s УМЕР!\n", u.GetRace())
 		return true
 	} else {
 		return false
@@ -77,5 +95,10 @@ func (u *Unit) SetLVL(level int) {
 }
 
 func (u *Unit) GetPosition() Coordinates {
-	return u.Position
+	return u.position
+}
+
+func (u *Unit) SetPosition(x int, y int) {
+	u.position.X = x
+	u.position.Y = y
 }

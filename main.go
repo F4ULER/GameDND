@@ -1,21 +1,26 @@
 package main
 
 import (
-	. "GameOfTrones/Units"
-	//. "GameOfTrones/Utils"
+	. "GameOfTrones/Enemies"
+	. "GameOfTrones/Interaction"
+	. "GameOfTrones/Players"
 )
 
 func main() {
 
-	var Player = Player{Name: "Tom", Possibility_of_player: Unit{HP: 6, DamagePoints: 1, Position: Coordinates{X: 0, Y: 0}, Race: "human"}}
+	var Player Player
 	Player.Possibility_of_player.SetLVL(1)
 	Player.SetExperience(0)
-	Goblin1 := CreateEnemy()
-	Goblin2 := CreateEnemy()
-	Goblin3 := CreateEnemy()
+	Player.Possibility_of_player.SetHP(5)
+	Player.SetName("Tom")
+	Player.Possibility_of_player.SetDamage(1)
+	Player.Possibility_of_player.SetRace("Человек")
+	Enemy1 := CreateEnemy()
+	Enemy2 := CreateEnemy()
+	Enemy3 := CreateEnemy()
 	enemies := make([]Enemy, 0)
-	AddEnemy(&enemies, &Goblin1)
-	AddEnemy(&enemies, &Goblin2)
-	AddEnemy(&enemies, &Goblin3)
-	Show_move_menu(&Player, &enemies)
+	AddEnemy(&enemies, &Enemy1)
+	AddEnemy(&enemies, &Enemy2)
+	AddEnemy(&enemies, &Enemy3)
+	StartGame(&Player, &enemies)
 }
