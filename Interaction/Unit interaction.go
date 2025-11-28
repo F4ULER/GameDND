@@ -18,7 +18,7 @@ type IUnitInteraction interface {
 
 type IAttack interface {
 	areUnitDead(p *Player, e *Enemy)
-	Taking_damage(p *Player, e *Enemy)
+	taking_damage(p *Player, e *Enemy)
 	areUnitsOnSamePosition(p *Player, e *Enemy) bool
 }
 
@@ -32,6 +32,7 @@ func StartGame(Player *Player, enemies *[]Enemy) {
 		for _, enemy := range *enemies {
 			if areUnitsOnSamePosition(Player, &enemy) {
 				Batle(Player, &enemy)
+				break
 			}
 		}
 	}
@@ -42,10 +43,11 @@ func Batle(p *Player, e *Enemy) {
 	for {
 		switch Show_atack_menu(p, e) {
 		case 1:
-			Taking_damage(p, e)
+			taking_damage(p, e)
 			if areUnitDead(p, e) {
 				p.LVLUp()
 				fmt.Printf("%s - %d уровень!\n", p.GetName(), p.Possibility_of_player.GetLVL())
+				return
 			}
 		case 2:
 			return
@@ -67,7 +69,7 @@ func areUnitDead(p *Player, e *Enemy) bool {
 	return false
 }
 
-func Taking_damage(p *Player, e *Enemy) {
+func taking_damage(p *Player, e *Enemy) {
 	damage := p.Possibility_of_player.GetDamage()
 	e.Possibility_of_enemy.SetHP(-damage)
 	damage = e.Possibility_of_enemy.GetDamage()

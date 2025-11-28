@@ -30,5 +30,6 @@ func Show_move_menu() int {
 	step := 1
 	PrintWithDelay("Движение:\n1.Вперед\n2.Вправо\n3.Влево\n4.Назад\n0:Выход")
 	fmt.Scan(&step)
+	Separate_block()
 	return step
 }

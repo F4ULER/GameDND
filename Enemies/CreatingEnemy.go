@@ -1,11 +1,12 @@
 package Enemy
 
 import (
-	//. "GameOfTrones/Units"
+	. "GameOfTrones/Utils"
 	"fmt"
 )
 
 type IEnemyType interface {
+	CreateEnemy()
 	chooseEnemyType()
 	createGoblin()
 	createRat()
@@ -14,11 +15,22 @@ type IEnemyType interface {
 	setParameters(HP int, LVL int, damagePoints int)
 }
 
-func chooseEnemyType(e *Enemy) {
-	var enemy int
-	fmt.Print("\nВыбор врага:\n1:Гоблин\n2:Крыса\n3:Ведьма\n4:Орк\n")
-	fmt.Scanln(&enemy)
-	fmt.Println()
+func CreateEnemy(enemies *[]Enemy) {
+	for {
+		var e Enemy
+		var key int
+		PrintWithDelay("\nСоздание врагов:\n1:Гоблин\n2:Крыса\n3:Ведьма\n4:Орк\n0:Начать игру\n")
+		fmt.Scan(&key)
+		fmt.Println()
+		startGame := chooseEnemyType(&e, key)
+		if !startGame {
+			break
+		}
+		addEnemy(enemies, &e)
+	}
+}
+
+func chooseEnemyType(e *Enemy, enemy int) bool {
 	switch enemy {
 	case 1:
 		createGoblin(e)
@@ -28,7 +40,10 @@ func chooseEnemyType(e *Enemy) {
 		createWitch(e)
 	case 4:
 		createOrc(e)
+	case 0:
+		return false
 	}
+	return true
 }
 
 func setParameters(e *Enemy, HP int, LVL int, damagePoints int) {
@@ -56,4 +71,8 @@ func createWitch(e *Enemy) {
 func createOrc(e *Enemy) {
 	e.Possibility_of_enemy.SetRace("Орк")
 	setParameters(e, 12, 3, 3)
+}
+
+func addEnemy(enemies *[]Enemy, e *Enemy) {
+	*enemies = append(*enemies, *e)
 }
