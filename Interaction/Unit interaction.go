@@ -61,8 +61,9 @@ func areUnitDead(p *Player, e *Enemy) bool {
 		fmt.Println("YOU ARE DEAD!")
 		os.Exit(0)
 	} else if e.Possibility_of_enemy.CheckUnitHP() {
-		fmt.Println("Вы выйграли!")
-		p.SetExperience(5)
+		fmt.Println("Вы выиграли!")
+		p.Possibility_of_player.SetExperience(e.Possibility_of_enemy.GetExperience())
+		fmt.Println(p.Possibility_of_player.GetExperience())
 		Separate_block()
 		return true
 	}

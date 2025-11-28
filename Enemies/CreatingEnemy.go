@@ -46,31 +46,32 @@ func chooseEnemyType(e *Enemy, enemy int) bool {
 	return true
 }
 
-func setParameters(e *Enemy, HP int, LVL int, damagePoints int) {
+func setParameters(e *Enemy, HP int, LVL int, damagePoints int, exp int) {
 	e.setPositionEnemy()
 	e.Possibility_of_enemy.SetLVL(LVL)
 	e.Possibility_of_enemy.SetDamage(damagePoints)
 	e.Possibility_of_enemy.SetHP(HP)
+	e.Possibility_of_enemy.SetExperience(exp)
 }
 
 func createGoblin(e *Enemy) {
 	e.Possibility_of_enemy.SetRace("Гоблин")
-	setParameters(e, 5, 1, 1)
+	setParameters(e, 5, 1, 1, 5)
 }
 
 func createRat(e *Enemy) {
 	e.Possibility_of_enemy.SetRace("Крыса")
-	setParameters(e, 2, 1, 1)
+	setParameters(e, 2, 1, 1, 10)
 }
 
 func createWitch(e *Enemy) {
 	e.Possibility_of_enemy.SetRace("Ведьма")
-	setParameters(e, 7, 2, 2)
+	setParameters(e, 7, 2, 2, 10)
 }
 
 func createOrc(e *Enemy) {
 	e.Possibility_of_enemy.SetRace("Орк")
-	setParameters(e, 12, 3, 3)
+	setParameters(e, 12, 3, 3, 15)
 }
 
 func addEnemy(enemies *[]Enemy, e *Enemy) {

@@ -8,9 +8,8 @@ import (
 
 type IEnemy interface {
 	setPositionEnemy()
-	CreateEnemy()
 	addEnemy()
-	getExperienceForEnemyKill()
+	GetExperienceForEnemyKill()
 }
 
 type Enemy struct {
@@ -26,8 +25,4 @@ func (e *Enemy) setPositionEnemy() {
 	fmt.Println()
 
 	e.Possibility_of_enemy.SetPosition(x, y)
-}
-
-func (e *Enemy) getExperienceForEnemyKill() {
-
 }

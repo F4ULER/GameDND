@@ -33,6 +33,7 @@ type Unit struct {
 	position     Coordinates
 	race         string
 	level        int
+	experience   int
 }
 
 func (u *Unit) GetDamage() int {
@@ -49,6 +50,14 @@ func (u *Unit) GetRace() string {
 
 func (u *Unit) SetRace(race string) {
 	u.race = race
+}
+
+func (u *Unit) GetExperience() int {
+	return u.experience
+}
+
+func (u *Unit) SetExperience(exp int) {
+	u.experience += exp
 }
 
 func (u *Unit) DirectionMove(step int) {
